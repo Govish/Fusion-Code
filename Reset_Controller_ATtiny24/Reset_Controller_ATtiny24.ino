@@ -88,8 +88,10 @@ void powerdown() {
 void reset_stuff() {
   //here, we'll shut off the LED, wait a bit, drive the reset pin low, and reset the ATtiny
   LED_OFF();
-  delay(3000);
+  delay(2000);
   digitalWrite(RST_MCU, LOW);
+  delay(1000);
+  pinMode(RST_MCU, INPUT);
 
   cli();
   WDTCSR = (1 << WDIE) | WDTO_1S;
@@ -111,6 +113,7 @@ void setup() {
     powerdown();
   }
   //otherwise continue to the normal loop
+  pinMode(RST_MCU, OUTPUT);
 }
 
 void loop() {
